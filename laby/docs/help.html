@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>laby</title>
+    <style type="text/css">
+        body        {margin:5%;
+                     background-color:#f8fff0;
+                     font-family:sans-serif;
+                     color:#000}
+        div.x       {font-family:monospace;
+                     color:#000;
+                     border:1px;
+                     border-style:solid;
+                     border-color:#000;
+                     padding:1em;
+                     margin-left:10%;
+                     margin-right:10%;
+                     margin-bottom:3em}
+        div.command {background-color:#fed}
+        div.code    {background-color:#eef}
+        p           {text-align:justify}
+        p.tsetcomm  {margin-left:10%;
+                     margin-bottom:0em}
+		h1		    {margin-top:2em}
+		h2		    {margin-top:2em}
+		h3		    {margin-top:2em}
+        img         {margin-left:10%}
+        a:link      {color:#280}
+        a:visited   {color:#250}
+        a:hover     {color:#f60;background-color:#fea;}
+        a:active    {color:#f00}
+        a.null      {margin-left:0em}
+        a.eins      {margin-left:2em}
+        a.zwei      {margin-left:4em}
+        a.drei      {margin-left:6em}
+        a.c         {text-decoration:none}
+        a.c:hover   {text-decoration:underline}
+        sup         {font-size:71%}
+    </style>
+  </head>
+  <body>
+
+<img style="float:left;margin-right:3%" src="helpillu00.png" width="234" width="234"
+     alt="Garden" />
+<pre style="color:#9b9">
+import laby
+import wx
+myApp = wx.App(0)
+
+maze = laby.Labyrinth.random(9, 9)
+maze.change(4, 0, 0)
+maze.change(8, 4, 1)
+maze.save("garden.txt")
+maze.paint(wx.Image("tileset/garden.png", 
+                    wx.BITMAP_TYPE_ANY)).SaveFile("garden.png", 
+                                                  wx.BITMAP_TYPE_PNG)
+</pre>
+
+    <h1><br /><br /><a name="0">0</a> Content</h1>
+    
+    <a class="c null" href="#0">0 Content</a><br />
+    <a class="c null" href="#1">1 Introduction</a><br />
+    <a class="c null" href="#2">2 Terms and Concepts</a><br />
+    <a class="c null" href="#3">3 Command Line Usage</a><br />
+      <a class="c eins" href="#30">3.0 make</a><br />
+      <a class="c eins" href="#31">3.1 convert</a><br />
+      <a class="c eins" href="#32">3.2 flatten</a><br />
+    <a class="c null" href="#4">4 Module laby.py</a><br />
+      <a class="c eins" href="#40">4.0 Labyrinth Creation</a><br />
+        <a class="c zwei" href="#400">4.0.0 __init__(data = [[]])</a><br />
+        <a class="c zwei" href="#401">4.0.1 empty(n, m)</a><br />
+        <a class="c zwei" href="#402">4.0.2 full(n, m, typ = FLAT)</a><br />
+        <a class="c zwei" href="#403">4.0.3 random(n, m, typ = FLAT, grains = 1)</a><br />
+      <a class="c eins" href="#41">4.1 Disc I/O</a><br />
+        <a class="c zwei" href="#410">4.1.0 save(filename)</a><br />
+        <a class="c zwei" href="#411">4.1.1 load(filename)</a><br />
+      <a class="c eins" href="#42">4.2 Information Retrieval</a><br />
+        <a class="c zwei" href="#420">4.2.0 width()</a><br />
+        <a class="c zwei" href="#421">4.2.1 height()</a><br />
+        <a class="c zwei" href="#422">4.2.2 count_zeroes()</a><br />
+        <a class="c zwei" href="#423">4.2.3 count_errors()</a><br />
+        <a class="c zwei" href="#424">4.2.4 count_highs()</a><br />
+        <a class="c zwei" href="#425">4.2.5 maxbit()</a><br />
+        <a class="c zwei" href="#426">4.2.6 count_areas()</a><br />
+        <a class="c zwei" href="#427">4.2.7 area_map()</a><br />
+        <a class="c zwei" href="#428">4.2.8 area_survey()</a><br />
+        <a class="c zwei" href="#429">4.2.9 path(start, stop)</a><br />
+        <a class="c zwei" href="#4210">4.2.10 qpath(self, p_from, p_to)</a><br />
+        <a class="c zwei" href="#4211">4.2.11 paths(self, start, stop)</a><br />
+      <a class="c eins" href="#43">4.3 Local Manipulation</a><br />
+        <a class="c zwei" href="#430">4.3.0 get(x, y)</a><br />
+        <a class="c zwei" href="#431">4.3.1 set(x, y, value)</a><br />
+        <a class="c zwei" href="#432">4.3.2 getb(x, y, b)</a><br />
+        <a class="c zwei" href="#433">4.3.3 setb(x, y, b, value)</a><br />
+        <a class="c zwei" href="#434">4.3.4 change(x, y, dir, bit = 1)</a><br />
+        <a class="c zwei" href="#435">4.3.5 hood(x, y)</a><br />
+      <a class="c eins" href="#44">4.4 Global Manipulation</a><br />
+        <a class="c zwei" href="#440">4.4.0 clone()</a><br />
+        <a class="c zwei" href="#441">4.4.1 transpose()</a><br />
+        <a class="c zwei" href="#442">4.4.2 invert()</a><br />
+        <a class="c zwei" href="#443">4.4.3 border(size = 1)</a><br />
+        <a class="c zwei" href="#443">4.4.3 double()</a><br />
+        <a class="c zwei" href="#444">4.4.4 random_doors(hori = 0.5, vert = None, typ = FLAT)</a><br />
+      <a class="c eins" href="#45">4.5 Painting</a><br />
+        <a class="c zwei" href="#450">4.5.0 paint(tileset, bits = 4)</a><br />
+    <a class="c null" href="#5">5 Tilesets</a><br />
+      <a class="c eins" href="#50">5.0 Colossal Cave Adventure</a><br />
+      <a class="c eins" href="#51">5.1 Strange Interpretations</a><br />
+      <a class="c eins" href="#52">5.2 Functional</a><br />
+      <a class="c eins" href="#53">5.3 With 3 Color Bits</a><br />
+    <a class="c null" href="#6">6 Links</a><br />
+      <a class="c eins" href="#60">6.0 Future</a><br />
+      <a class="c eins" href="#61">6.1 Python</a><br />
+      <a class="c eins" href="#62">6.2 Labyrinths</a><br />
+      <a class="c eins" href="#63">6.3 Me</a><br />
+
+
+    
+<h1><a name="1">1</a> Introduction</h1>
+    
+    <p>I created the module <tt>laby.py</tt> for the creation and manipulation
+      of labyrinths. This module can be used from the command line (without
+      any knowledge of Python), or from within other Python programs. 
+      Furthermore, a mathematical model of a labyrinth can be converted to
+      a graphical representation.</p>
+      
+    <p>As a consequence, I split the explanation of <tt>laby.py</tt> into
+      several parts: in the next chapter, I explain what a labyrinth is,
+      and define some basic terms and concepts. In the third chapter, I
+      explain the command line usage. The fourth chapter explains the class
+      <tt>Labyrinth</tt>, the most important part of the modul
+      <tt>laby.py</tt>, in detail.</p>
+      
+    <p>Together with the python files comes a collection of tilesets. Some
+      remarks about these tilesets is added in the fifth chapter. The sixth
+      chapter concludes with some more or less useful links (like where to
+      get Python, without which nothing of the following will work).</p>
+  
+<h1><a name="2">2</a> Terms and Concepts</h1>
+    
+    <p>A <i>labyrinth</i> is something like this:</p>
+    
+    <img src="helpillu01.png" alt="Sample Maze" width="200" height="200" />
+    
+    <p>This labyrinth shows some specialties. For example, it has only one
+      <i>connected</i> <i>area</i>. It is also possible to have several areas,
+      with no connection between different areas:</p>
+    
+    <img src="helpillu02.png" alt="Seven Countries" width="300" height="200" />
+    
+    <p>Both these labyrinths have another special property: they don't contain a
+      <i>circle</i> (they are <i>circle-free</i>), unlike the next 
+      labyrinth:</p>
+
+    <img src="helpillu03.png" alt="With Circles" width="200" height="200" />
+    
+    <p>A labyrinth can be understood as a special case of a mathematical
+      graph. In the context of <tt>laby.py</tt>, we are only dealing with
+      rectangular labyrinths, composed of rectangular <i>tiles</i> or 
+      <i>cells</i>.</p>
+      
+    <p>Conceptually, we thing of the labyrinth as living on a <i>torus</i>: if 
+      something passes the top border, it re-enters through the bottom border.
+      If something passes the right border, it re-enters through the left 
+      border.</p>
+      
+    <p>The labyrinths shown so far don't use this possibility. Therefore,
+      we call them <i>flat</i>.</p>
+      
+    <p>Another possibility would be that the top and bottom border are
+      respected, but not the left and right border (like the maps in the
+      game "Civilization"). This would be a <i>ring</i>. Still another 
+      possibility would be a violation of the top and bottom border, bot not 
+      the left and right border, but this possibility is not used here.</p>
+      
+    <img src="top_flat.png" alt="Flat" width="208" height="168" /> Flat<br />
+    <br />
+    <img src="top_ring.png" alt="Ring" width="208" height="168" /> Ring<br />
+    <br />
+    <img src="top_torus.png" alt="Torus" width="208" height="168" /> Torus<br />
+    
+    <p>Note that all three labyrinths above contain a single connected area
+      and are circle-free.</p>
+
+    <p>Each cell has 4 neighboring cells: one north, one east, one south and
+      one west. For each neighbor, there are two possibilities: there can be
+      a <i>wall</i> between them (expressed with a 0), or a <i>door</i> 
+      (expressed with a 1). The four directions are numbered from 0 to 3:</p>
+    
+    <img src="helpillu04.png" alt="The Four Edges" width="233" height="243" />
+    
+    <p>To describe the state of an individual cell, we use four bits: one bit
+      for each direction. Let N, E, S and W be either 0 or 1 (depending whether
+      there is a wall or a door in this direction), the state of a cell is</p>
+      
+    <p><pre>    value = 1 * N  +  2 * E  +  4 * S  +  8 * W</pre></p>
+    
+    <p>Strictly speaking, we could do with just two bits, like N and E. If
+      a cell has a door in the south, its southern neighbor must have a door
+      in the north, and so on. Using 4 bits instead of two allows for the
+      possibility of <i>inconsistencies</i>. This may look like a drawback
+      for our approach (and sometimes it is), but there are some advantages:
+      sometimes, the possibility of inconsistencies is something wanted,
+      and the use of 4 bits makes the painting of labyrinths easier.</p> 
+      
+    <p>The next image shows all 16 possible states a cell can have:</p>
+    
+    <img src="helpillu05.png" alt="The 16 States" width="280" height="280" />
+    
+    <p>Besides those basic 4 bits, a cell is allowed to have additionally
+      bits. The meaning of these additionally bits is not fixed; they can
+      be used for whatever pleases you. Example for higher bits are provided
+      below.</p>
+      
+    <p>A labyrinth is basically, in the context of <tt>laby.py</tt>, a 
+      rectangular matrix of non-negative integers. Such a matrix can be
+      converted in an image of the labyrinth. Such a conversion needs a
+      mapping from integers to tile images. Such a conversion map is provided
+      by a <i>tileset</i>. A tileset is an image consisting of 2<sup>b</sup>
+      subimages, with b the number of bits used. For the most basic option,
+      at least 16 subimages (for the 16 possible states) are needed.</p>
+      
+    <p>If an individual tile has width w and height h, the tileset has height
+      h and width w&nbsp;*&nbsp;2<sup>b</sup>, that is, at least 
+      w&nbsp;*&nbsp;16. The next image shows a possible tileset:</p>
+      
+    <img src="../tileset/dungeon.png" alt="Dungeon Tileset" 
+         width="512" height="32" />
+         
+    <p>The following labyrinth</p>
+    
+    <pre>         2 12  6  8  2 14 10  8  2 14  8  4  2 12  2 12  4  4  4  4
+         4  3 13  4  4  7  8  4  4  7 10  9  4  3 14 15  9  7  9  5
+         3 14  9  5  5  7  8  5  3 13  4  2 11 14  9  3 10 11 10 13
+         2 15  8  7  9  7 10  9  4  7 11 10  8  7 10 10 10 10 12  1
+         2 15 10 11  8  7 10 10  9  5  6 14  8  7 12  4  6  8  3 12
+         4  5  6 12  6  9  2 12  4  7  9  7 10 13  3 11 11 12  4  1
+         7 11 13  1  7 10  8  3 13  5  4  3  8  3 10  8  4  1  7  8
+         5  4  3 10  9  4  2 10 15  9  7 10  8  6 10 10  9  4  7  8
+         7 11 14 14 14 15 14 10 15 14 11  8  6  9  2 12  4  7 11  8
+         5  6  9  1  5  1  1  4  5  3  8  4  5  4  2 15  9  5  4  4
+         5  3  8  2 15 10 14  9  3 14 10 11 13  7 10  9  4  7  9  5
+         7 14  8  6 11  8  7 10  8  7 14 12  3 15 10 14  9  7 10 13
+         5  3  8  7 14  8  7 10  8  5  1  1  2  9  2 15 10 11  8  1
+         5  2 14 13  7  8  3  8  6 15 10 10 14 14  8  7 10 14  8  4
+         7 12  1  1  3 14 14  8  5  7 14 12  1  7  8  3  8  3 14  9
+         1  7 10  8  2  9  7  8  1  1  1  3  8  3 14 14 12  2 15 12
+         6 15 14  8  4  4  3 14 14 10 10 14 10  8  1  5  3  8  1  5
+         5  1  7  8  5  7  8  5  5  6 10 15 14 12  6 11 14  8  2 13
+         7 12  5  6 11 15 12  1  5  1  6 13  1  1  7 12  7  8  6 13
+         1  1  3 11  8  1  1  2  9  2  9  1  2 10  9  1  1  2  9  1</pre>
+
+    <p>corresponds to this image:</p>
+    
+    <img src="helpillu06.png" alt="Colossal Cave Adventure" 
+         width="640" height="640" />
+         
+    <p>The very first image in this page shows another possible rendering.</p>
+    
+<h1><a name="3">3</a> Command Line Usage</h1>
+    
+    <p>The command line usage allows the creation and rendering of a random
+      labyrinth. To be able to use <tt>laby.py</tt> you need Python installed
+      on your machine. To be able to render your labyrinths, you need also
+      wxPython installed.</p>
+      
+    <p>Assume <tt>laby.py</tt> is located under <tt>c:\laby\laby.py</tt>. In
+      this case, it is possible to invoke the program with</p>
+      
+    <div class="x command">
+      python laby.py <i>command</i> <i>parameters</i> <i>[options]</i>
+    </div>
+    
+    <p>with <i>command</i> being one of the three commands explained below,
+      <i>parameters</i> being some parameters and <i>options</i> being some
+      options.</p>
+      
+    <p>Under Windows, it is also possible to omit <tt>python</tt> and simply
+      write</p>
+    
+    <div class="x command">
+      laby.py <i>command</i> <i>parameters</i> <i>[options]</i>
+    </div>
+
+<h2><a name="30">3.0</a> make</h2>
+    
+    <p>The command <tt>make</tt> is invoked with</p>
+    
+    <div class="x command">
+      laby.py make <i>outfile</i> <i>width</i> <i>height</i> <i>[options]</i>
+    </div>
+
+    <p>This creates the textfile <tt><i>outfile</i></tt>, containing a 
+      labyrinth with the according <tt><i>width</i></tt> and 
+      <tt><i>height</i></tt>.</p>
+
+    <p>Example:</p>
+      
+    <div class="x command">laby.py make test.txt 20 10</div>
+    
+    <p>This will create a file <tt>test.txt</tt> containing the definition of
+      a labyrinth:</p>
+      
+    <pre>
+
+    laby.Labyrinth([
+        [4, 4, 2, 14, 8, 4, 2, 10, 14, 8, 6, 8, 6, 8, 4, 6, 8, 6, 12, 4],
+        [7, 11, 12, 5, 6, 11, 8, 4, 5, 6, 9, 4, 5, 6, 9, 5, 6, 9, 3, 9],
+        [1, 6, 13, 7, 11, 14, 8, 3, 15, 11, 8, 3, 15, 11, 8, 7, 15, 14, 8, 4],
+        [2, 9, 7, 9, 4, 1, 2, 10, 15, 8, 4, 6, 11, 10, 10, 9, 1, 3, 14, 13],
+        [4, 6, 11, 14, 15, 14, 14, 14, 15, 10, 11, 11, 10, 12, 4, 4, 4, 4, 1, 1],
+        [7, 15, 12, 5, 5, 1, 5, 5, 5, 2, 14, 14, 12, 7, 11, 15, 13, 3, 12, 4],
+        [1, 1, 5, 1, 7, 8, 1, 5, 7, 10, 9, 1, 1, 3, 8, 1, 3, 10, 11, 9],
+        [2, 14, 13, 2, 15, 10, 8, 5, 3, 14, 14, 14, 14, 10, 12, 4, 6, 8, 6, 12],
+        [4, 1, 1, 2, 15, 10, 12, 3, 12, 1, 5, 1, 3, 8, 7, 15, 15, 10, 13, 1],
+        [3, 10, 10, 10, 9, 2, 11, 8, 1, 2, 11, 10, 10, 8, 1, 1, 3, 8, 3, 8]
+    ])
+
+    </pre>    
+    
+    <p>The actual numbers may differ, since the labyrinth is created using
+      a random number generator.</p>
+      
+    <p>The created labyrinth uses only the four basic bits. It is guaranteed
+      to be consistent and circle-free.</p>
+      
+    <p>The number of areas created can be controlled with the option
+      <tt>--grains</tt>. This option determines how many connected areas
+      are generated. It should be a number between 1 and 
+      width&nbsp;*&nbsp;height. If this option is missing, only one area will
+      be created.</p>
+      
+    <p>Example:</p>
+      
+    <div class="x command">
+      laby.py make test.txt 20 10 --grains=7
+    </div>
+    
+    <p>This will create a labyrinth with seven disconnected areas.</p>
+      
+    <p>More possible options are --ring and --torus. The option --ring
+      produces a labyrinth in which a passage that disappears on the right can
+      continue on the left. With the option --torus, the same is true for
+      the top and bottom edge (if both --ring and --torus are found, --torus
+      takes precedence).</p>
+      
+    <p>Examples:</p>
+
+    <div class="x command">
+      laby.py make test.txt 20 10 --ring<br />
+      <br />
+      laby.py make test.txt 20 10 --torus<br />
+      <br />
+      laby.py make test.txt 20 10 --torus --grains=4<br />
+      <br />
+      laby.py make test.txt 20 10 --grains=4 --torus
+    </div>
+    
+    <p>The resulting file <tt>test.txt</tt> can be rendered using the 
+      <tt>convert</tt> command (see next section). But it is also possible to
+      immediately render the resulting labyrinth (if wxPython is installed).
+      This uses the <tt>--image</tt> option, which allows to provide the
+      filename of an image file where the resulting rendered labyrinth
+      should be stored.</p>
+    
+    <p>Examples:</p>
+      
+    <div class="x command">
+      laby.py make test.txt 20 10 --image=c:\img\labs\testmaze.png<br />
+      <br>
+      laby.py make test.txt 20 10 --image=testmaze.png
+    </div>
+      
+    <p>The image is always stored as a PNG image, regardless of the filename
+      and its ending you provide (in fact, the option 
+      <tt>--image=testmaze.bmp</tt> will result in the creation of the file 
+      <tt>testmaze.bmp.png</tt>).</p>
+      
+    <p>The program will search for the file <tt>tileset/simple.png</tt> to use
+      it as the tileset for rendering. You may provide an alternative tileset
+      using the <tt>--set</tt> option.</p>
+      
+    <p>Example:</p>
+      
+    <div class="x command">
+      laby.py make test.txt 20 10 --image=testmaze.png --set=tileset\small.png
+    </div>
+    
+    <p>The command <tt>make</tt> creates a labyrinth that uses only the basic
+      four bits. Nevertheless, you may want to use a tileset containing more
+      than 16 tiles, like the 7-bit tileset <tt>tileset/simple.7.png</tt> 
+      which contains 128 subimages. Without further information, the program
+      will assume that you want to use a 4-bit tileset with 16 subimages. You
+      can change this behavior with the option <tt>--bits</tt>.</p>
+      
+    <p>Example:</p>
+      
+    <div class="x command">
+      laby.py make test.txt 20 10 --image=testmaze.png 
+      --set=tileset\simple.7.png --bits=7
+    </div>
+    
+    <p>Finally, some hints: the command <tt>make</tt> can be abbreviated with
+      a simple <tt>m</tt>; similar, <tt>convert</tt> can be abbreviated as 
+      <tt>c</tt> and <tt>flatten</tt> as <tt>f</tt>.</p>
+      
+    <p>All command line options have an alternative syntax with only one
+      leading hyphen and a single letter. The following two lines are
+      equivalent:</p>
+      
+    <div class="x command">
+      laby.py make test.txt 20 10 --ring --grains=5<br />
+      <br />
+      laby.py m test.txt 20 10 -rg5
+    </div>
+      
+    <p>Abbreviated and unabbreviated forms can be mixed.</p>
+    
+<h2><a name="31">3.1</a> convert</h2>
+    
+    <p>Textfiles created with <tt>make</tt> can be rendered with the command 
+      <tt>convert</tt> using the following parameters:</p>
+      
+    <div class="x command">
+      laby.py convert <i>infile</i> <i>outfile <i>[options]</i></i>
+    </div>
+    
+    <p>In this case, <tt><i>infile</i></tt> is the name of a file created with 
+    <tt>make</tt>, and <tt><i>outfile</i></tt> is the name of the image file
+    that is to be created. This file will be written as a PNG file.</p>
+    
+    <p>Example:</p>
+
+    <div class="x command">
+      laby.py convert test.txt anothermaze.png
+    </div>
+
+    <p>The program will search for the file <tt>tileset/simple.png</tt> to use
+      it as the tileset for rendering. You may provide an alternative tileset
+      using the <tt>--set</tt> option.</p>
+      
+    <p>Example:</p>
+      
+    <div class="x command">
+      laby.py convert test.txt anothermaze.png --set=tileset\small.png
+    </div>
+    
+    <p>If the tileset contains more than 16 subimages, you need to provide
+      this information using the <tt>--bits</tt> option, like in the case
+      of the <tt>make</tt> command.</p>
+      
+    <p>Example:</p>
+    
+    <div class="x command">
+      laby.py convert test.txt anothermaze.png --set=tileset\simple.7.png
+      --bits=7
+    </div>
+    
+<h2><a name="32">3.2</a> flatten</h2>
+    
+    <p>Linkz is a nice little game that comes with some tilesets similar
+      to the tilesets used here. But instead of using a big image consisting
+      of 16x1 subimages, they use a big image consisting of 4x4 subimages.</p>
+      
+    <p>The command <tt>flatten</tt> provides an easy and convenient method to
+      convert a 4x4 tileset into a 16x1 tileset:</p>
+      
+    <div class="x command">
+      laby.py flatten <i>infile</i> <i>outfile</i>
+    </div>
+    
+    <p>with <tt><i>infile</i></tt> being an image file in 4x4 format and
+      <tt><i>outfile</i></tt> being the name of the target file.</p>
+      
+    <p>Example:</p>
+    
+    <div class="x command">
+      laby.py flatten c:\games\linkz\tiles\dungeon\Dungeon_TileSet.bmp 
+      c:\img\labs\tileset\dungeon.png
+    </div>
+    
+    <p>There are no options for the <tt>flatten</tt> command.</p>
+    
+<h1><a name="4">4</a> Module laby.py</h1>
+    
+    <p>The module <tt>laby.py</tt> contains, besides the code for the command
+      line use, mainly a single class, the class <tt>Labyrinth</tt>. This
+      class allows the creation, manipulation and rendering of Labyrinths.</p>
+      
+    <p>Accordingly, the following chapters provide a survey of all methods of 
+      the class <tt>Labyrinth</tt>.
+      
+    <p>For more examples, take a look at the file <tt>examples.py</tt>, which
+      contains some code snippets. I also tried to add some helpful docstrings
+      to the source code of <tt>laby.py</tt>.</p>
+    
+<h2><a name="40">4.0</a> Labyrinth Creation</h2>
+    
+  <h3><a name="400">4.0.0</a> __init__(data = [[]])</h3>
+    
+    <p>The most basic way to create a new <tt>Labyrinth</tt> is to use the
+      constructor. The constructor takes an optional argument, a list of list
+      of integers. This argument is a list of rows, each row a list of 
+      cells.</p>
+      
+    <p>Example:</p>
+    
+    <div class="x code">
+      import laby<br />
+      maze = laby.Labyrinth([[6, 12], [3, 9]])
+    </div>
+    
+  <h3><a name="401">4.0.1</a> empty(n, m)</h3>
+  
+    <p>This classmethod creates a new, empty labyrinth with width <tt>n</tt>
+      and height <tt>m</tt>. Since it is a classmethod, no instance is needed
+      to invoke this method.</p>
+    
+    <p>Example:</p>
+    
+    <div class="x code">
+      import laby<br />
+      maze = laby.Labyrinth.empty(20, 15)
+    </div>
+    
+  <h3><a name="402">4.0.2</a> full(n, m, typ = FLAT)</h3>
+  
+    <p>This classmethod creates a new labyrinth with width <tt>n</tt>
+      and height <tt>m</tt> and as much doors as possible, depending on the
+      type <tt>typ</tt>. <tt>typ</tt> may be one of <tt>laby.FLAT</tt>,
+      <tt>laby.RING</tt> and <tt>laby.TORUS</tt>. Since it is a classmethod, 
+      no instance is needed to invoke this method.</p>
+    
+    <p>Example:</p>
+    
+    <div class="x code">
+      import laby<br />
+      maze = laby.Labyrinth.full(20, 15, laby.RING)
+    </div>
+    
+    <p>This creates the following labyrinth:</p>
+    
+    <img src="helpillu07.png" alt="Full" width="200" height="150" />
+    
+  <h3><a name="403">4.0.3</a> random(n, m, typ = FLAT, grains = 1)</h3>
+  
+    <p>This creates a random circle-free labyrinth with width <tt>n</tt>, 
+      height <tt>m</tt>, type <tt>typ</tt> and <tt>grains</tt> different
+      areas. Since it is a classmethod, no instance is needed to invoke this 
+      method.</p>
+    
+    <p>Example:</p>
+    
+    <div class="x code">
+      import laby<br />
+      maze = laby.Labyrinth.random(20, 15)<br />
+      maze = laby.Labyrinth.random(20, 15, laby.TORUS)<br />
+      maze = laby.Labyrinth.random(20, 15, laby.RING, 5)
+    </div>
+    
+    <img src="helpillu08.png" alt="Random 1" width="200" height="150" />
+    <tt>laby.Labyrinth.random(20, 15)</tt><br /><br />
+    <img src="helpillu09.png" alt="Random 2" width="200" height="150" />
+    <tt>laby.Labyrinth.random(20, 15, laby.TORUS)</tt><br /><br />
+    <img src="helpillu10.png" alt="Random 3" width="200" height="150" />
+    <tt>laby.Labyrinth.random(20, 15, laby.RING, 5)</tt>
+    
+<h2><a name="41">4.1</a> Disc I/O</h2>
+    
+  <h3><a name="410">4.1.0</a> save(filename)</h3>
+    
+    <p>Saves the labyrinth as a text file.</p>
+    
+  <h3><a name="411">4.1.1</a> load(filename)</h3>
+    
+    <p>Loads the labyrinth from a text file. This is a class method, so no 
+      instance is needed to invoke this method.</p>
+    
+    <p>Example:</p>
+    
+    <div class="x code">
+      import laby<br />
+      maze1 = laby.Labyrinth.random(20, 15)<br />
+      maze1.save("c:\\mazes\\randommaze.txt")<br />
+      maze2 = laby.Labyrinth.load("c:\\mazes\\randommaze.txt")
+    </div>
+
+<h2><a name="42">4.2</a> Information Retrieval</h2>
+
+  <h3><a name="420">4.2.0</a> width()</h3>
+    
+    <p>Returns the width of the labyrinth.</p>
+
+  <h3><a name="421">4.2.1</a> height()</h3>
+    
+    <p>Returns the height of the labyrinth.</p>
+    
+  <h3><a name="422">4.2.2</a> count_zeroes()</h3>
+    
+    <p>Number of cells with content 0.</p>
+    
+  <h3><a name="423">4.2.3</a> count_errors()</h3>
+    
+    <p>Number of inconsistencies.</p>
+    
+  <h3><a name="424">4.2.4</a> count_highs()</h3>
+    
+    <p>Number of cells with higher bits (content greater 15).</p>
+    
+  <h3><a name="425">4.2.5</a> maxbit()</h3>
+    
+    <p>Highest bit in use. For a labyrinth created with <tt>random</tt>
+      or <tt>full</tt>, this is usually 3 (counting starts with 0). For a 
+      labyrinth created with <tt>empty</tt>, this is -1 (meaning all cells 
+      have the value 0).</p>
+
+  <h3><a name="426">4.2.6</a> count_areas()</h3>
+    
+    <p>Number of areas.</p>
+    
+  <h3><a name="427">4.2.7</a> area_map()</h3>
+    
+    <p>Returns a new "labyrinth". All areas in the original labyrinth are
+      labeled with a number (starting with 1), and the new maze is filled 
+      with those labels. For example, if cell (3,&nbsp;5) belongs to area 4,
+      the new labyrinth has the value 4 in the cell (3,&nbsp;5).</p>
+
+    <p>The following example can be used to color labyrinths according
+      to their different areas.</p>
+    
+    <div class="x code"><pre>
+import laby
+import wx
+myApp = wx.App(0)
+
+maze = laby.Labyrinth.random(20, 15, laby.FLAT, 7)
+maze2 = maze.area_map()
+
+for i in range(maze.width()):
+    for j in range(maze.height()):
+        maze.set(i, j, maze.get(i, j) + 16 * (maze2.get(i, j) % 8))
+        
+tileset = wx.Image("tileset/simple.7.png", wx.BITMAP_TYPE_ANY)
+img = maze.paint(tileset, 7)
+img.SaveFile("helpillu11.png", wx.BITMAP_TYPE_PNG)
+    </pre></div>
+
+    <img src="helpillu11.png" alt="Map" width="200" height="150" />
+
+  <h3><a name="428">4.2.8</a> area_survey()</h3>
+  
+  <p>Returns a tupel <tt>(map, areas)</tt>. The <tt>map</tt> is the same as
+    returned by <tt>area_map</tt>. The list <tt>areas</tt> is a list of all
+    areas of the labyrinth. Each area is itself a list of the points belonging
+    to this area. Each point is a tupel of the form <tt>(x,&nbsp;y)</tt>.</p>
+    
+  <p>The following example searches the largest area and colors all cells in
+    this area.</p>
+    
+    <div class="x code"><pre>
+import laby
+import wx
+myApp = wx.App(0)
+
+maze = Labyrinth.random(20, 15, FLAT, 7)
+map, areas = maze.area_survey()
+
+maxa = 0
+sela = areas[0]
+for a in areas:
+    if len(a) > maxa:
+        maxa = len(a)
+        sela = a
+        
+for x, y in sela:
+    maze.setb(x, y, 4, 1)
+    
+tileset = wx.Image("tileset/simple.7.png", wx.BITMAP_TYPE_ANY)
+img = maze.paint(tileset, 7)
+img.SaveFile("helpillu12.png", wx.BITMAP_TYPE_PNG)
+    </pre></div>
+    
+    <img src="helpillu12.png" alt="Red Empire" width="200" height="150" />
+    
+  <h3><a name="429">4.2.9</a> path(start, stop)</h3>
+  
+    <p>The parameters <tt>start</tt> and <tt>stop</tt> are supposed to be 
+      <tt>(x,&nbsp;y)</tt>-tupels giving the coordinates of two points.</p>
+      
+    <p>The method returns a list of <tt>(x,&nbsp;y)</tt>-tupels which
+      corresponds to a shortest path between <tt>start</tt> and 
+      <tt>stop</tt>.</p>
+      
+    <p>It is guaranteed that there is no shorter path from <tt>start</tt> to 
+      <tt>stop</tt>, but it is not guaranteed that 
+      <tt>path(stop,&nbsp;start)</tt> yields the reverse path of 
+      <tt>path(start,&nbsp;stop)</tt>.</p>
+      
+    <p>If there is no path between <tt>start</tt> and <tt>stop</tt> (if they
+      belong to different areas), <tt>None</tt> is returned.</p>
+    
+    <p>This method should be treated with caution, since it is slow
+      and memory-intensive. For a quicker method, see <tt>qpath</tt>.</p>
+      
+  <h3><a name="4210">4.2.10</a> qpath(self, p_from, p_to)</h3>
+  
+    <p>Works like <tt>path</tt>.</p>
+    
+    <p>If there is no connection between p_from and p_to, an empty list
+      is returned.</p>
+
+    <p>The resulting path is not guaranteed to be the shortest
+      possible path. Furthermore, it is not guaranteed that the path
+      from <tt>p_to</tt> to <tt>p_from</tt> is the reverse of the path from 
+      <tt>p_from</tt> to <tt>p_to</tt>.</p>
+            
+    <p>On the other hand, if there are several alternative paths, the
+      computation of <tt>qpath</tt> is much faster (and less memory intensive)
+      than the computation of <tt>path</tt>.</p>
+
+    <p>In a circle-free labyrinth, <tt>path</tt> and <tt>qpath</tt> are pretty
+      much the same.</tt>
+            
+  <h3><a name="4211">4.2.11</a> paths(self, start, stop)</h3>
+  
+    <p>Works like <tt>path</tt>, but instead of returning the shortest path,
+      a list of all possible paths is returned. Like <tt>path</tt>, 
+      <tt>paths</tt> can be memory and computation intensive and should be
+      used with caution (at least if there are many circles present).</p>
+
+<h2><a name="43">4.3</a> Local Manipulation</h2>
+
+  <h3><a name="430">4.3.0</a> get(x, y)</h3>
+  
+    <p>Value of the cell with the coordinates <tt>x</tt> and <tt>y</tt>.</p>
+
+  <h3><a name="431">4.3.1</a> set(x, y, value)</h3>
+  
+    <p>Sets the value of the cell with the coordinates <tt>x</tt> and 
+      <tt>y</tt>. By convention, this should be a non-negative integer, but
+      any value is allowed.</p>
+
+  <h3><a name="432">4.3.2</a> getb(x, y, b)</h3>
+  
+    <p>Value of the <tt>b</tt>th bit of the cell with the coordinates 
+      <tt>x</tt> and <tt>y</tt>. Counting of bits start with 0. The return
+      value is either 0 or 1. Bit 0 corresponds to the northern edge, bit 1
+      corresponds to the eastern edge, bit 2 corresponds to the southern
+      edge and bit 3 corresponds to the western edge. The meaning of the
+      higher bits is undefined.</p>
+
+  <h3><a name="433">4.3.3</a> setb(x, y, b, value)</h3>
+  
+    <p>Sets the value of the <tt>b</tt>th bit of the cell with the 
+      coordinates <tt>x</tt> and <tt>y</tt>. This should be 
+      either 0 or 1.</p>
+
+  <h3><a name="434">4.3.4</a> change(x, y, dir, bit = 1)</h3>
+  
+    <p>Manipulating single lower bits has the disadvantage of making the
+      labyrinth potentially inconsistent. <tt>setb</tt> is therefore better
+      suited for the manipulation of higher bits. In case of the four basic
+      bits, a bit should only be changed if the bit of the corresponding
+      neighboring cell is also changed. This can be done with the method 
+      <tt>change</tt>. <tt>x</tt> and <tt>y</tt> are the coordinates of the
+      cell where an edge shall be changed. <tt>dir</tt> is the direction of
+      the edge, with 0 = north, 1 = east, 2 = south, 3 = west. <tt>bit</tt>
+      defines whether a door (bit 1) or a wall (bit 0) shall be added.</p>
+      
+    <p>The value of the neighboring cell is updated accordingly. Using
+      <tt>change</tt> guarantees that a consistent labyrinth stays 
+      consistent.</p>
+      
+    <p>Example:</p>
+    
+    <div class="x code"><pre>
+import laby
+import wx
+myApp = wx.App(0)
+
+maze = laby.Labyrinth.empty(4, 4)
+
+maze.change(0, 0, 1)
+maze.change(1, 0, 1)
+maze.change(2, 0, 1)
+maze.change(3, 0, 2)
+maze.change(3, 1, 2)
+maze.change(3, 2, 2)
+maze.change(3, 3, 3)
+maze.change(2, 3, 3)
+maze.change(1, 3, 3)
+maze.change(0, 3, 0)
+maze.change(0, 2, 0)
+maze.change(0, 1, 1)
+maze.change(1, 1, 1)
+maze.change(2, 1, 2)
+maze.change(2, 2, 3)
+
+maze.setb(0, 0, 0, 1) # This introduces an inconsistency!
+
+tileset = wx.Image("tileset/simple.png", wx.BITMAP_TYPE_ANY)
+img = maze.paint(tileset)
+img.SaveFile("helpillu13.png", wx.BITMAP_TYPE_PNG)
+    </pre></div>
+
+    <img src="helpillu13.png" alt="Spiral" width="80" height="80" />
+    
+  <h3><a name="435">4.3.5</a> hood(x, y)</h3>
+  
+    <p>List containing all accessible neighbors of the cell with the
+      coordinates <tt>x</tt> and <tt>y</tt>. This list contains zero to four
+      neighboring cells as <tt>(x,&nbsp;y)</tt>-tupels, depending whether
+      they are connected with a door or a wall. In the case of torus or ring
+      shaped labyrinths, <tt>hood</tt> will be able to find "neighbors on the
+      other side".</p>
+      
+    <p>Example:</p>
+    <div class="x code"><pre>
+import laby
+
+maze = laby.Labyrinth.empty(4, 4)
+
+maze.change(3, 1, 2)
+maze.change(3, 1, 1)
+
+print maze.hood(3, 1)  
+# [(0, 1), (3, 2)]
+    </pre></div>
+
+    <img src="helpillu14.png" alt="Neighborhood" width="80" height="80" />
+
+<h2><a name="44">4.4</a> Global Manipulation</h2>
+
+  <h3><a name="440">4.4.0</a> clone()</h3>
+  
+    <p>Returns a deepcopied clone of the labyrinth. This means that any 
+      manipulation of the clone has no affect on the original. Useful in
+      conjunction with <tt>invert</tt> or <tt>transpose</tt>.</p>
+      
+  <h3><a name="441">4.4.1</a> transpose()</h3>
+  
+    <p>Transposes the labyrinth in place (performs a diagonal flip, in case
+      you are wondering what a transposition is; exchanges x and y). This 
+      allows the creation of vertical rings, if such a thing is needed.</p>
+      
+    <p>Example:</p>
+    
+    <div class="x code">
+      import laby<br />
+      <br />
+      maze = laby.Labyrinth.random(30, 40, laby.RING)<br />
+      maze.transpose()
+    </div>
+
+  <h3><a name="442">4.4.2</a> invert()</h3>
+  
+    <p>Inverts the labyrinth. A labyrinth is a system of passages, separated
+      by walls, respectively a system of walls, separated by passages.
+      <tt>invert</tt> exchanges the meaning of walls and passages. Imagine
+      that by convention, passages are white and walls are black. Now you take
+      a labyrinth and paint all walls white and all passages black. This would
+      make the labyrinth look like its own inversion.</p>
+      
+    <img src="helpillu15.png" alt="Inversion 0" width="240" height="160" />
+    Original<br /><br />
+    <img src="helpillu16.png" alt="Inversion 0" width="240" height="160" />
+    Inversion<br /><br />
+    <img src="helpillu17.png" alt="Inversion 0" width="240" height="160" />
+    Inverted Inversion (= slightely shifted original)
+    
+  <h3><a name="443">4.4.3</a> border(size = 1)</h3>
+  
+    <p>Returns a new labyrinth with an additional frame of size <tt>size</tt>.
+      For a flat labyrinth, this frame will be empty.</p>
+      
+    <p>The following examples show flat, ring-shaped and torus-shaped
+      labyrinths with an additional border of size 3.</p>
+  
+    <img src="top_flat.png" alt="Flat" width="104" height="84" />
+    <img src="top_ring.png" alt="Ring" width="104" height="84" />
+    <img src="top_torus.png" alt="Torus" width="104" height="84" />
+    
+    <p>The cells within the frame are regular cells and can be manipulated
+      like any other cell.</p>
+
+  <h3><a name="443">4.4.3</a> double()</h3>
+  
+    <p>Returns a new labyrinth twice as large. In this new labyrinth, passages
+      are replaces with walls, and the border between passages and walls 
+      becomes the new passages.</p>
+      
+    <img src="helpillu15.png" alt="Inversion 0" width="480" height="320" />
+    Single<br /><br />
+    <img src="helpillu19.png" alt="Inversion 0" width="480" height="320" />
+    Double<br /><br />
+    <img src="helpillu18.png" alt="Inversion 0" width="480" height="320" />
+    Double Double
+    
+    <p>In the language of Graph Theory: a tree is converted into a circle. A
+      simple circle is converted into two concentric circles.</p>
+  
+  <h3><a name="444">4.4.4</a> random_doors(hori = 0.5, vert = None, typ = 
+    FLAT)</h3>
+    
+  <p>Adds additional doors to the labyrinth. Depending on <tt>typ</tt>, those 
+    additional doors do or do not respect the borders of the labyrinth.</p>
+    
+  <p><tt>hori</tt> is the probability of a wall between two horizontally
+    neighboring cells to disappear. <tt>vert</tt> is the probability of a
+    wall between two vertically neighboring cells to disappear. If no value
+    for <tt>vert</tt> is provided, the value <tt>hori</tt> is used for
+    <tt>vert</tt> too.</p>
+
+    <img src="helpillu01.png" alt="Simple Maze" width="200" height="200" />
+    <img src="helpillu20.png" alt="Not So Simple Maze" width="200" height="200" />
+
+  
+
+<h2><a name="45">4.5</a> Painting</h2>
+
+  <h3><a name="450">4.5.0</a> paint(tileset, bits = 4)</h3>
+  
+    <p>Returns a <tt>wx.Image</tt>, containing the rendered version of the 
+      labyrinth.</p>
+      
+    <p><tt>tileset</tt> is a <tt>wx.Image</tt> containing the tiles that 
+      should be used for rendering. <tt>bits</tt> serves two purposes: it 
+      indicates how many subimages the <tt>wx.Image</tt> <tt>tileset</tt>
+      contains (that is, 2<sup><tt>bits</tt></sup>), and how many bits of
+      the cell values of the labyrinth should be taken into consideration;
+      higher bits are ignored.</p>
+      
+    <p>Example:</p>
+    
+    <div class="x code"><pre>
+import laby
+import wx
+myApp = wx.App(0)
+
+maze = laby.Labyrinth.random(40, 30, laby.FLAT, 20)
+maze2 = maze.area_map()
+
+for i in range(maze.width()):
+    for j in range(maze.height()):
+        maze.set(i, j, maze.get(i, j) + 16 * (maze2.get(i, j) % 8))
+        
+tileset4 = wx.Image("tileset/small.png", wx.BITMAP_TYPE_ANY)
+tileset7 = wx.Image("tileset/small.7.png", wx.BITMAP_TYPE_ANY)
+img4 = maze.paint(tileset4)
+img7 = maze.paint(tileset7, 7)
+img4.SaveFile("maze.png", wx.BITMAP_TYPE_PNG)
+img7.SaveFile("maze_colored.png", wx.BITMAP_TYPE_PNG)
+    </pre></div>
+    
+    <img src="helpillu21.png" alt="Uncolored" width="320" height="240" />
+    4-Bit-Image<br /><br />
+    <img src="helpillu22.png" alt="Uncolored" width="320" height="240" />
+    7-Bit-Image
+    
+    <p>Not only is wxPython needed for this to work: to be able to load or
+      save image files, the image handlers of wxPython must be initialized.
+      This is the reason why the example code above contains the line</p>
+      
+    <div class="x code">
+      ...<br />
+      myApp = wx.App(0)<br />
+      ...
+    </div>
+      
+    <p>The only purpose of the dummy <tt>myApp</tt> is to cick in the 
+      initialization of the wxPython image handlers.</p>
+    
+<h1><a name="5">5</a> Tilesets</h1>
+
+    <p>The folder <tt>laby/tileset/</tt> contains some tilesets. Most of them
+      are self-explanatory, others may require some comment.</p>
+
+<h2><a name="50">5.0</a> Colossal Cave Adventure</h2>
+
+    <p>The tilesets in this category are simply some decorative variations of
+      the theme "labyrinths".</p>
+      
+    <p class="tsetcomm">"dungeon.png": 4 Bits = 16 Tiles, each 32x32</p>  
+    <img src="../tileset/dungeon.png" alt="dungeon.png" width="512" 
+         height="32" /><br /><br />
+         
+    <p class="tsetcomm">"cave.png": 4 Bits = 16 Tiles, each 16x12</p>  
+    <img src="../tileset/cave.png" alt="cave.png" width="256" 
+         height="12" /><br /><br />
+         
+    <p class="tsetcomm">"garden.png": 4 Bits = 16 Tiles, each 26x26</p>  
+    <img src="../tileset/garden.png" alt="garden.png" width="416" 
+         height="26" /><br /><br />
+         
+<h2><a name="51">5.1</a> Strange Interpretations</h2>
+
+    <p>The tilesets in this category may produce some strange effects. They
+      are not easily recognizable as labyrinths, but may (depending on taste
+      and personal preferences) produce nice images. I made them for the
+      game "Linkz" (within this game, "tough" is quite nightmarish; "relaxed"
+      is an easier variation of it, hence the name; I started "tracks" with
+      railroad tracks in mind, but came out with some garden paths).</p>
+      
+    <p class="tsetcomm">"diagonal.png": 4 Bits = 16 Tiles, each 32x32</p>  
+    <img src="../tileset/diagonal.png" alt="diagonal.png" width="512" 
+         height="32" /><br /><br />
+    
+    <p class="tsetcomm">"relaxed.png": 4 Bits = 16 Tiles, each 32x32</p>  
+    <img src="../tileset/relaxed.png" alt="relaxed.png" width="512" 
+         height="32" /><br /><br />
+    
+    <p class="tsetcomm">"tough.png": 4 Bits = 16 Tiles, each 32x32</p>  
+    <img src="../tileset/tough.png" alt="tough.png" width="512" 
+         height="32" /><br /><br />
+    
+    <p class="tsetcomm">"tracks.png": 4 Bits = 16 Tiles, each 52x32</p>  
+    <img src="../tileset/tracks.png" alt="tracks.png" width="832" 
+         height="32" /><br /><br />
+    
+<h2><a name="52">5.2</a> Functional</h2>
+
+    <p>The tilsets in this category are not necessarily the most satisfying
+      with regard to aesthetics, but they are useful for examining
+      labyrinths.</p>
+
+    <p class="tsetcomm"><br /><br />"simple.png": 4 Bits = 16 Tiles, each 20x20</p>  
+    <img src="../tileset/simple.png" alt="simple.png" width="320" 
+         height="20" /><br />
+         
+    <p>This is the default tileset. The passages are slightly thicker than the
+      walls. This tileset is also the origin of the next three.</p>
+
+    <p class="tsetcomm"><br /><br />"black.png": 4 Bits = 16 Tiles, each 20x20</p>  
+    <img src="../tileset/black.png" alt="black.png" width="320" 
+         height="20" /><br />
+         
+    <p>Sometimes, instead of areas of size 1, some kind of no-go regions are
+      needed. Therefore this slight variation.</p>
+    
+    <p class="tsetcomm"><br /><br />"basic.png": 4 Bits = 16 Tiles, each 20x20</p>  
+    <img src="../tileset/basic.png" alt="basic.png" width="320" 
+         height="20" /><br />
+         
+    <p>The purpose of this one should be obvious. Each tile carries its
+      hexadecimal number.</p>
+         
+    <p class="tsetcomm"><br /><br />"pillars.png": 4 Bits = 16 Tiles, each 20x20</p>  
+    <img src="../tileset/pillars.png" alt="pillars.png" width="320" 
+         height="20" /><br />
+         
+    <p>Sometimes, it is desirable to color walls individually. This tilset
+      makes this easier by distinguishing between walls and pillars.</p>
+
+    <p class="tsetcomm"><br /><br />"small.png": 4 Bits = 16 Tiles, each 4x4</p>  
+    <img src="../tileset/small.png" alt="small.png" width="64" 
+         height="4" /><br />
+         
+    <p>Large labyrinths require small tilesets.</p>
+         
+    <p class="tsetcomm"><br /><br />"tiny.png": 4 Bits = 16 Tiles, each 2x2</p>  
+    <img src="../tileset/tiny.png" alt="tiny.png" width="32" 
+         height="2" /><br />
+         
+    <p>This is the smallest tileset possible, with walls and passages being
+      only one pixel width. Unfortunately, it renders a consistent labyrinth
+      and one of its inconsistent twins alike, that is, if you are dealing 
+      with inconsistent labyrinths, information will get lost. For 
+      consistent labyrinths, no such problem arises.</p>
+      
+    <p>This is actually a 2-bit tileset with four different tiles; but as a
+      matter of convenience, I repeated those four tiles four times and 
+      thereby made it a proper 16 bit set.</p>
+         
+<h2><a name="53">5.3</a> With 3 Color Bits</h2>
+
+    <p>The following tilesets are 7-bit tilesets with 128 tiles. The 
+      additional 3 bits are used for coloring: the first bit indicates red,
+      the second green and the third blue. This results in 8 possible colors.
+      They are based on tilesets of the previous section. I adopted the
+      convention of adding a ".7" between the filename and its suffix.</p>
+      
+    <p class="tsetcomm">"simple.7.png": 7 Bits = 128 Tiles, each 20x20</p>  
+    <img src="../tileset/simple.7.png" alt="simple.7.png" width="2560" 
+         height="20" /><br /><br />
+         
+    <p class="tsetcomm">"black.7.png": 7 Bits = 128 Tiles, each 20x20</p>  
+    <img src="../tileset/black.7.png" alt="black.7.png" width="2560" 
+         height="20" /><br /><br />
+         
+    <p class="tsetcomm">"small.7.png": 7 Bits = 128 Tiles, each 4x4</p>  
+    <img src="../tileset/small.7.png" alt="small.7.png" width="512" 
+         height="4" /><br /><br />
+         
+    <p class="tsetcomm">"tiny.7.png": 7 Bits = 128 Tiles, each 2x2</p>  
+    <img src="../tileset/tiny.7.png" alt="tiny.7.png" width="256" 
+         height="2" /><br /><br />
+    
+<h1><a name="6">6</a> Links</h1>
+
+<h2><a name="60">6.0</a> Future</h2>
+
+    <p>I managed to reduce the time complexity of the <tt>random</tt> method
+      of the class <tt>laby.Labyrinth</tt> from something like 
+      o(n<sup>2</sup>&middot;m<sup>2</sup>) to 
+      o(n<sup>1.5</sup>&middot;m<sup>1.5</sup>) (with n and m being width and
+      height of the labyrinth). Using a really good hashtable for the
+      "potentionally alive cells" could reduce this to o(n&middot;m), I think.
+      </p>
+      
+    <p>The algorithms for the computation of areas or paths are neither fast
+      nor clever and could be improved.</p>
+      
+    <p>Rewriting so that other graphics libraries than wxPython could be
+      used would be
+      nice (detect which suitable additional package is present, and use one 
+      of them, instead of requiring a specific one of them).</p>
+      
+    <p>A complete refactoring so that the individual cells of a labyrinth
+      don&#8217;t store an integer, but a dictionary with the state of the
+      edges of the cell being one entry among others (which would make it 
+      easier to store some interesting state).</p>
+      
+    <p>Or, quite the opposite: a complete refactoring using NumPy to speed
+      things up.</p>
+
+<h2><a name="61">6.1</a> Python</h2>
+    
+<h2><a name="62">6.2</a> Labyrinths</h2>
+    
+<h2><a name="63">6.3</a> Me</h2>
+
+    <p>This package was written by me, Jan Thor. My homepage and email are:</p>
+    
+    <p><a href="http://www.janthor.de/index.html">http://www.janthor.de/index.html</a><br />
+      <a href="mailto:jan@janthor.de">mailto:jan@janthor.de</a></p>
+    
+
+  </body>
+</html>
