@@ -8,8 +8,9 @@ app = Flask(__name__)
 @app.route("/", methods=['get', 'post'])
 def index():
     if request.method == "post":
-        return "this is the post result"
-    return render_template("hello.html")
+        return render_template("posthello.html")
+    else:
+        return render_template("hello.html")  # % ("guanjie")
 
 
 @app.route("/hello/<username>")
